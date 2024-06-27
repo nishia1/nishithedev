@@ -1,0 +1,3 @@
+work in progress
+currently just a snow globe....
+eventually personal portfolio trust
