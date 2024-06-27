@@ -44,14 +44,20 @@
     #ground {
       height: 25%;
       width: 100%;
-      background: #bebebe;
+      background: #000;
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.0/tsparticles.bundle.min.js">
-
-  </script>
-
-  <!-- Make it installable! -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.0/tsparticles.bundle.min.js"></script>
+  <!-- PWA Stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3063ac">
+  <meta name="apple-mobile-web-app-title" content="Snowglobe">
+  <meta name="application-name" content="Snowglobe">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="theme-color" content="#2e2e2e">
 </head>
 
 <body>
@@ -59,34 +65,41 @@
     <div id="particles"></div>
     <div id="ground"></div>
   </div>
+  <audio id="music">
+    <source src="audio.mp3" type="audio/mp3">
+    </source>
+  </audio>
+
   <script>
-    // Your JS goes in Here!
     let globe = document.getElementById("snowglobe");
     let particles;
+    let music = document.getElementById("music");
     function calculateAcceleration(event) {
       const {x, y, z} = event.accelerationIncludingGravity;
       const accelerationMagnitude = Math.sqrt(x * x + y * y + z * z);
       return accelerationMagnitude;
     }
     function shakeItUp() {
-      particles.play()
-      globe.classList.add("shake")
-      setTimeout(() => {globe.classList.remove("shake")}, 1100)
+      particles.play();
+      music.play();
+      globe.classList.add("shake");
+      setTimeout(() => {globe.classList.remove("shake");}, 1100);
     }
     tsParticles.loadJSON('particles', 'particles.json')
       .then(function () {
         particles = tsParticles.domItem(0);
-        particles.pause()
+        particles.pause();
         globe.addEventListener('click', () => {
-          shakeItUp()
+          shakeItUp();
         });
         window.addEventListener("devicemotion", (event) => {
           const acceleration = calculateAcceleration(event);
           if (acceleration > 23) {
-            shakeItUp()
+            shakeItUp();
           }
         });
       });
+
   </script>
 </body>
 
